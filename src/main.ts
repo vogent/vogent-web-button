@@ -60,6 +60,45 @@ async function setupVogentButton({
     baseUrl,
   });
 
+  const inlineStyle = document.createElement("style");
+  inlineStyle.textContent = `.vogent-button {
+  /* Original classes */
+  background-color: #0f172a;  /* Slate-900, a common primary color */
+  color: #f8fafc;  /* Slate-50, a light text color for dark backgrounds */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);  /* Default shadow */
+  height: 2.25rem;  /* 9 * 0.25rem = 2.25rem (36px) */
+  padding-left: 1rem;  /* 4 * 0.25rem = 1rem (16px) */
+  padding-right: 1rem; /* 4 * 0.25rem = 1rem (16px) */
+  padding-top: 0.5rem; /* 2 * 0.25rem = 0.5rem (8px) */
+  padding-bottom: 0.5rem; /* 2 * 0.25rem = 0.5rem (8px) */
+ 
+  cursor: pointer;
+  /* Added classes */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;  /* gap-2 = 2 * 0.25rem = 0.5rem (8px) */
+  white-space: nowrap;
+  border-radius: 0.375rem;  /* rounded-md = 0.375rem (6px) */
+  font-size: 0.875rem;  /* text-sm = 0.875rem (14px) */
+  line-height: 1.25rem;  /* Part of text-sm */
+  font-weight: 500;  /* font-medium = 500 */
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.vogent-button:hover {
+  background-color: rgba(15, 23, 42, 0.9);  /* primary color at 90% opacity */
+}
+
+.vogent-button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}`
+  buttonArgs.parent.append(inlineStyle)
+
+
   const button = document.createElement('button');
   button.className = 'vogent-button';
   button.textContent = buttonArgs.preCallText || 'Make Call';

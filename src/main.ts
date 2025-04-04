@@ -46,19 +46,7 @@ async function setupVogentButton({
     token: string;
   }>
 }) {
-  const {
-    sessionId,
-    dialId,
-    token,
-  } = await getDialDetails()
-
-  const call = new VogentCall({
-    sessionId,
-    dialId,
-    token,
-  }, {
-    baseUrl,
-  });
+  let call: VogentCall | undefined
 
   const inlineStyle = document.createElement("style");
   inlineStyle.textContent = `.vogent-button {
@@ -112,30 +100,43 @@ async function setupVogentButton({
   let status = ''
 
   button.addEventListener('click', () => {
-    if (status === '') {
-      (async () => {
+    (async () => {    
+      if (status === '') {
+        const {
+          sessionId,
+          dialId,
+          token,
+        } = await getDialDetails()
+      
+        call = new VogentCall({
+          sessionId,
+          dialId,
+          token,
+        }, {
+          baseUrl,
+        });
+  
+        call.on('status', (s: string) => {
+          status = s
+      
+          if (dialStatusIsComplete(s)) {
+            button.textContent = buttonArgs.completeText || "Call Complete"
+            button.disabled = true
+          } else if (s == "in-progress") {
+            button.textContent = buttonArgs.inProgressText || "Hangup"
+          } else if (s == "queued") {
+            button.textContent = "Queued" 
+          }
+        });    
+  
         await call.start();
         await call.connectAudio()
-      })()
-    } else if (status == 'in-progress') {
-      (async () => {
-        await call.hangup()
-      })()
-    }
+      } else if (status == 'in-progress') {
+        await call?.hangup()
+      }
+    })()
   });
 
-  call.on('status', (s: string) => {
-    status = s
-
-    if (dialStatusIsComplete(s)) {
-      button.textContent = buttonArgs.completeText || "Call Complete"
-      button.disabled = true
-    } else if (s == "in-progress") {
-      button.textContent = buttonArgs.inProgressText || "Hangup"
-    } else if (s == "queued") {
-      button.textContent = "Queued" 
-    }
-  });
 }
 
 

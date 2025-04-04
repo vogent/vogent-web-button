@@ -58235,18 +58235,9 @@ callInfo:` + i + ")");
     buttonArgs: l,
     getDialDetails: u
   }) {
-    const {
-      sessionId: s,
-      dialId: a,
-      token: n
-    } = await u(), _ = new bet({
-      sessionId: s,
-      dialId: a,
-      token: n
-    }, {
-      baseUrl: Cet
-    }), v = document.createElement("style");
-    v.textContent = `.vogent-button {
+    let s;
+    const a = document.createElement("style");
+    a.textContent = `.vogent-button {
   /* Original classes */
   background-color: #0f172a;  /* Slate-900, a common primary color */
   color: #f8fafc;  /* Slate-50, a light text color for dark backgrounds */
@@ -58280,17 +58271,32 @@ callInfo:` + i + ")");
 .vogent-button:disabled {
   pointer-events: none;
   opacity: 0.5;
-}`, l.parent.append(v);
-    const h = document.createElement("button");
-    if (h.className = "vogent-button", h.textContent = l.preCallText || "Make Call", l.style)
-      for (const [o, E] of Object.entries(l.style))
-        h.style.setProperty(o, E);
-    l.parent.appendChild(h);
-    let m = "";
-    h.addEventListener("click", () => {
-      m === "" ? (async () => (await _.start(), await _.connectAudio()))() : m == "in-progress" && (async () => await _.hangup())();
-    }), _.on("status", (o) => {
-      m = o, x4(o) ? (h.textContent = l.completeText || "Call Complete", h.disabled = !0) : o == "in-progress" ? h.textContent = l.inProgressText || "Hangup" : o == "queued" && (h.textContent = "Queued");
+}`, l.parent.append(a);
+    const n = document.createElement("button");
+    if (n.className = "vogent-button", n.textContent = l.preCallText || "Make Call", l.style)
+      for (const [v, h] of Object.entries(l.style))
+        n.style.setProperty(v, h);
+    l.parent.appendChild(n);
+    let _ = "";
+    n.addEventListener("click", () => {
+      (async () => {
+        if (_ === "") {
+          const {
+            sessionId: v,
+            dialId: h,
+            token: m
+          } = await u();
+          s = new bet({
+            sessionId: v,
+            dialId: h,
+            token: m
+          }, {
+            baseUrl: Cet
+          }), s.on("status", (o) => {
+            _ = o, x4(o) ? (n.textContent = l.completeText || "Call Complete", n.disabled = !0) : o == "in-progress" ? n.textContent = l.inProgressText || "Hangup" : o == "queued" && (n.textContent = "Queued");
+          }), await s.start(), await s.connectAudio();
+        } else _ == "in-progress" && await (s == null ? void 0 : s.hangup());
+      })();
     });
   }
   window.VogentWebButton = {

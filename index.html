@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      var script = document.createElement('script')
+      script.src = '/src/main.ts'
+      script.type = 'module'
+      script.onload = () => {
+        window.VogentWebButton.setupVogentButton({
+          buttonArgs: {
+            parent: document.getElementById('app'),
+          },
+          getDialDetails: async () => {
+            return {
+                "dialId": "dial-id",
+                "token": "token",
+                "sessionId": "sessId"
+            }
+          }
+        })
+      }
+      document.body.appendChild(script)
+    </script>
+  </body>
+</html>

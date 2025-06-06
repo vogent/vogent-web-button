@@ -13,6 +13,6 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "@vogent/vogent-web-client": "^0.0.10"
+    "@vogent/vogent-web-client": "0.1.0"
   }
 }

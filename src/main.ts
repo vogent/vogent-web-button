@@ -1,7 +1,7 @@
 import './style.css'
 import { VogentCall, dialStatusIsComplete } from "@vogent/vogent-web-client";
 
-const baseUrl = 'https://api.getelto.com';
+const baseUrl = 'https://api.vogent.ai';
 
 // type VogentDial = {
 //   dialToken: string;
@@ -59,7 +59,7 @@ async function setupVogentButton({
   padding-right: 1rem; /* 4 * 0.25rem = 1rem (16px) */
   padding-top: 0.5rem; /* 2 * 0.25rem = 0.5rem (8px) */
   padding-bottom: 0.5rem; /* 2 * 0.25rem = 0.5rem (8px) */
- 
+
   cursor: pointer;
   /* Added classes */
   display: inline-flex;
@@ -100,14 +100,14 @@ async function setupVogentButton({
   let status = ''
 
   button.addEventListener('click', () => {
-    (async () => {    
+    (async () => {
       if (status === '') {
         const {
           sessionId,
           dialId,
           token,
         } = await getDialDetails()
-      
+
         call = new VogentCall({
           sessionId,
           dialId,
@@ -115,20 +115,20 @@ async function setupVogentButton({
         }, {
           baseUrl,
         });
-  
+
         call.on('status', (s: string) => {
           status = s
-      
+
           if (dialStatusIsComplete(s)) {
             button.textContent = buttonArgs.completeText || "Call Complete"
             button.disabled = true
           } else if (s == "in-progress") {
             button.textContent = buttonArgs.inProgressText || "Hangup"
           } else if (s == "queued") {
-            button.textContent = "Queued" 
+            button.textContent = "Queued"
           }
-        });    
-  
+        });
+
         await call.start();
         await call.connectAudio()
       } else if (status == 'in-progress') {

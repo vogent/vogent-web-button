@@ -7,22 +7,13 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <vogent-web-widget public-api-key="pub_vogent_..." call-agent-id="your-call-agent-id"></vogent-web-widget>
+    </div>
     <script>
       var script = document.createElement('script')
       script.src = '/src/main.ts'
       script.type = 'module'
-      script.onload = () => {
-        window.VogentWebButton.setupVogentButton({
-          apiDetails: {
-            publicApiKey: 'pub_vogent_...',
-            callAgentId: 'your-call-agent-id',
-          },
-          buttonArgs: {
-            parent: document.getElementById('app'),
-          },
-        })
-      }
       document.body.appendChild(script)
     </script>
   </body>

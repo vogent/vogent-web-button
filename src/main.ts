@@ -62,10 +62,10 @@ async function setupVogentButton({
 }: {
   buttonArgs: {
     parent: HTMLElement;
-    preCallText?: string;
-    inProgressText?: string;
-    completeText?: string;
-    style?: Record<string, string>;
+    preCallText?: string | null;
+    inProgressText?: string | null;
+    completeText?: string | null;
+    style?: Record<string, string> | null;
   },
   apiDetails?: {
     publicApiKey: string;
@@ -182,10 +182,31 @@ async function setupVogentButton({
       }
     })()
   });
-
 }
 
 
 (window as any).VogentWebButton = {
   setupVogentButton,
 };
+
+for (const widget of document.getElementsByTagName("vogent-web-widget")) {
+  const preCallText = widget.getAttribute("pre-call-text");
+  const inProgressText = widget.getAttribute("in-progress-text");
+  const completeText = widget.getAttribute("complete-text");
+  const styleVal = widget.getAttribute("style");
+  const style = styleVal ? JSON.parse(styleVal) as Record<string, string> : undefined;
+
+  setupVogentButton({
+    buttonArgs: {
+      parent: widget as HTMLElement,
+      preCallText,
+      inProgressText,
+      completeText,
+      style,
+    },
+    apiDetails: {
+      publicApiKey: widget.getAttribute("public-api-key") || '',
+      callAgentId: widget.getAttribute("call-agent-id") || '',
+    },
+  });
+}

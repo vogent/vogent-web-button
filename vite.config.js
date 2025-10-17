@@ -10,7 +10,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/main.js'),
       name: 'VogentWebButton',
       // the proper extensions will be added
-      fileName: 'vogent-web-button',
+      fileName: 'vogent-web-widget',
     },
   },
 })

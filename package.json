@@ -1,7 +1,6 @@
 {
-  "name": "vogent-web-button",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@vogent/vogent-web-widget",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,5 +13,14 @@
   },
   "dependencies": {
     "@vogent/vogent-web-client": "^0.1.4"
+  },
+  "main": "dist/vogent-web-widget.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist/vogent-web-widget.js"
+    }
   }
 }

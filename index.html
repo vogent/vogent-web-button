@@ -14,16 +14,13 @@
       script.type = 'module'
       script.onload = () => {
         window.VogentWebButton.setupVogentButton({
+          apiDetails: {
+            publicApiKey: 'pub_vogent_...',
+            callAgentId: 'your-call-agent-id',
+          },
           buttonArgs: {
             parent: document.getElementById('app'),
           },
-          getDialDetails: async () => {
-            return {
-                "dialId": "dial-id",
-                "token": "token",
-                "sessionId": "sessId"
-            }
-          }
         })
       }
       document.body.appendChild(script)

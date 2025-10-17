@@ -178,10 +178,10 @@
   resolved "https://registry.yarnpkg.com/@livekit/mutex/-/mutex-1.1.1.tgz#72492b611d55be8130ba2271b7a436d94b1bc6d4"
   integrity sha512-EsshAucklmpuUAfkABPxJNhzj9v2sG7JuzFDL4ML1oJQSV14sqrpTYnsaOudMAw9yOaW53NU3QQTlUQoRs4czw==
 
-"@livekit/protocol@1.38.0":
-  version "1.38.0"
-  resolved "https://registry.yarnpkg.com/@livekit/protocol/-/protocol-1.38.0.tgz#2b34a5078532beb9c90c6260944f6053e8a62ba8"
-  integrity sha512-XX6ulvsE1XCN18LVf3ydHN7Ri1Z1M1P5dQdjnm5nVDsSqUL12Vbo/4RKcRlCEXAg2qB62mKjcaVLXVwkfXggkg==
+"@livekit/protocol@1.42.0":
+  version "1.42.0"
+  resolved "https://registry.yarnpkg.com/@livekit/protocol/-/protocol-1.42.0.tgz#10f225a189e1b238ae69291f253f4921e8ff4a72"
+  integrity sha512-42sYSCay2PZrn5yHHt+O3RQpTElcTrA7bqg7iYbflUApeerA5tUCJDr8Z4abHsYHVKjqVUbkBq/TPmT3X6aYOQ==
   dependencies:
     "@bufbuild/protobuf" "^1.10.0"
 
@@ -312,16 +312,16 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.7.tgz#4158d3105276773d5b7695cd4834b1722e4f37a8"
   integrity sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==
 
-"@vogent/vogent-web-client@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@vogent/vogent-web-client/-/vogent-web-client-0.1.0.tgz#4ae8e75447db76106bdc9cb878e946c14756bf08"
-  integrity sha512-0qfQ09Qo8kpmyfKInrQuI0fE0mYJ5I52mwC0u2bwGcPxD35WOcUNe/BW01dK+4UohCs21XpJEs35I0ufzHFHzw==
+"@vogent/vogent-web-client@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@vogent/vogent-web-client/-/vogent-web-client-0.1.4.tgz#c6aca2308740636830f3de59e87a6c4bac0633f2"
+  integrity sha512-JPoRiLQsHDaGvKMGHPv504WK6seJMJWEsUt09KyeZzjWtFm9HPwBH6V5s50iq7s4yS60gGLDCFh0Vq5rI3Bc1g==
   dependencies:
     "@apollo/client" "^3.12.4"
     "@vonage/client-sdk" "^1.7.2"
     graphql "^16.10.0"
     graphql-ws "^5.16.0"
-    livekit-client "^2.13.3"
+    livekit-client "2.15.8"
 
 "@vonage/client-sdk@^1.7.2":
   version "1.7.2"
@@ -464,19 +464,25 @@ joi@^17.4.0:
     "@sideway/formula" "^3.0.1"
     "@sideway/pinpoint" "^2.0.0"
 
+jose@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-6.1.0.tgz#96285365689d16f2845a353964d2284bf19f464c"
+  integrity sha512-TTQJyoEoKcC1lscpVDCSsVgYzUDg/0Bt3WE//WiTPK6uOCQC2KZS4MpugbMWt/zyjkopgZoXhZuCi00gLudfUA==
+
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
-livekit-client@^2.13.3:
-  version "2.13.3"
-  resolved "https://registry.yarnpkg.com/livekit-client/-/livekit-client-2.13.3.tgz#66ab1ae2f1dff611b5506da2bde92af06ee20f7c"
-  integrity sha512-5lX9bqN2ZKjt1RqJqO1Vz9uplrnCLIpbG3Y8h7z0ui2adk5oahohV0m1F2ZEaIJTfQgXhX1iVbSYrVNwTzwRDQ==
+livekit-client@2.15.8:
+  version "2.15.8"
+  resolved "https://registry.yarnpkg.com/livekit-client/-/livekit-client-2.15.8.tgz#6eede377db2392110455dffd716ad5c01b81d02a"
+  integrity sha512-M+GnlmoY+JOfGGhDov5f4V273YZ9DuWFBaPwz42fliC3TsFTzEcJoRqqE7uLtEGAnloqbLPk+sIvW/XSU4Z4/Q==
   dependencies:
     "@livekit/mutex" "1.1.1"
-    "@livekit/protocol" "1.38.0"
+    "@livekit/protocol" "1.42.0"
     events "^3.3.0"
+    jose "^6.1.0"
     loglevel "^1.9.2"
     sdp-transform "^2.15.0"
     ts-debounce "^4.0.0"

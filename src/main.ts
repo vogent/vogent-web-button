@@ -29,8 +29,35 @@ const baseUrl = 'https://api.vogent.ai';
 //   return dial;
 // }
 
+async function createBrowserDial(publicApiKey: string, callAgentId: string) {
+  const res = await fetch(`${baseUrl}/api/dials`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${publicApiKey}`,
+    },
+    body: JSON.stringify({
+      browserCall: true,
+      callAgentId: callAgentId,
+    }),
+  });
+
+  const dial = await res.json() as {
+    sessionId: string;
+    dialId: string;
+    dialToken: string;
+  };
+
+  return {
+    sessionId: dial.sessionId,
+    dialId: dial.dialId,
+    token: dial.dialToken,
+  };
+}
+
 async function setupVogentButton({
   buttonArgs,
+  apiDetails,
   getDialDetails,
 }: {
   buttonArgs: {
@@ -40,12 +67,20 @@ async function setupVogentButton({
     completeText?: string;
     style?: Record<string, string>;
   },
-  getDialDetails: () => Promise<{
+  apiDetails?: {
+    publicApiKey: string;
+    callAgentId: string;
+  },
+  getDialDetails?: () => Promise<{
     sessionId: string;
     dialId: string;
     token: string;
   }>
 }) {
+  if (apiDetails && !apiDetails.publicApiKey.startsWith("pub_")) {
+    alert('You must use a public API key in the browser, please create one and pass it to the setupVogentButton function instead. It should start with pub_')
+  }
+
   let call: VogentCall | undefined
 
   const inlineStyle = document.createElement("style");
@@ -102,11 +137,22 @@ async function setupVogentButton({
   button.addEventListener('click', () => {
     (async () => {
       if (status === '') {
+        let dialDetailsFn = getDialDetails
+        if (apiDetails && !dialDetailsFn) {
+          dialDetailsFn = async () => {
+            return await createBrowserDial(apiDetails.publicApiKey, apiDetails.callAgentId)
+          }
+        }
+
+        if (!dialDetailsFn) {
+          throw new Error('Either apiDetails or getDialDetails must be provided')
+        }
+
         const {
           sessionId,
           dialId,
           token,
-        } = await getDialDetails()
+        } = await dialDetailsFn()
 
         call = new VogentCall({
           sessionId,

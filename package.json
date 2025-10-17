@@ -17,10 +17,5 @@
   "main": "dist/vogent-web-widget.js",
   "files": [
     "dist"
-  ],
-  "exports": {
-    ".": {
-      "default": "./dist/vogent-web-widget.js"
-    }
-  }
+  ]
 }
